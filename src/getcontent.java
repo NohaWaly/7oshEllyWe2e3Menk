@@ -127,11 +127,12 @@ public class getcontent {
 				}
 				if (x==false) {
 					
-				User obj =new User(FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Address.getText(), passwordField.getText());
+				Userinfo obj =new Userinfo(FirstName.getText(), LastName.getText(), Email.getText(), Phone.getText(), Address.getText(), passwordField.getText());
 				JOptionPane.showMessageDialog(null, "SUCCESSFULLY CREATED YOUR ACCOUNT! PLEASE LOGIN!!");
 				ConnectionMySQL x1 = new ConnectionMySQL();
 				x1.signupaddindb(obj);
-				
+				firstpage obj1=new firstpage();
+				obj1.viewFirstPage();
 				}}
 		});
 		btnSubmit.setFont(new Font("Tahoma", Font.BOLD, 19));

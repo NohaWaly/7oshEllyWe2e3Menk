@@ -19,6 +19,7 @@ public class getlogincontent {
 	private JTextField Mail;
 	private JPasswordField passwordField;
 	private JButton btnLogin;
+	public String usermail="";
 
 	/**
 	 * Launch the application.
@@ -88,13 +89,13 @@ public class getlogincontent {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean flag;
-				User ob = new User(Mail.getText(), passwordField.getText().toString());
+				usermail=Mail.getText();
+				Userinfo ob = new Userinfo(Mail.getText(), passwordField.getText().toString());
 				ConnectionMySQL c = new ConnectionMySQL();
 				flag = c.searchindb(ob);
-				// c.searchindb(ob);
 				if (flag == true) {
 					Profile obj = new Profile();
-					obj.showprofile();
+					obj.showprofile(usermail);
 				} else {
 					JOptionPane.showMessageDialog(null, "Can't find data in db please sign up or recheck!!");
 				}

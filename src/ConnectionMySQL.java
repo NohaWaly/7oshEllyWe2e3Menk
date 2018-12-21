@@ -14,11 +14,11 @@ public class ConnectionMySQL {
 
 	}
 
-	public static void signupaddindb(User obj) {
+	public static void signupaddindb(Userinfo obj) {
 
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginuser", "root", "root");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/swe", "root", "root");
 
 			if (conn != null) {
 				System.out.println("connection succeeded");
@@ -28,7 +28,6 @@ public class ConnectionMySQL {
 					"INSERT INTO `userdb` ( first_name, last_name, email, phone, address, password) VALUE (?,?,?,?,?,?)");
 
 			pstmt.setString(1, obj.first_name);
-			System.out.println(obj.first_name + "*****");
 			pstmt.setString(2, obj.last_name);
 			pstmt.setString(3, obj.email);
 			pstmt.setString(4, obj.phone);
@@ -36,7 +35,7 @@ public class ConnectionMySQL {
 			pstmt.setString(6, obj.password);
 
 			pstmt.executeUpdate();
-	
+			conn.close();
 
 		} catch (Exception e) {
 			System.out.println("connection NOT succeeded");
@@ -45,11 +44,11 @@ public class ConnectionMySQL {
 
 	}
 
-	public static boolean searchindb(User obj) {
+	public static boolean searchindb(Userinfo obj) {
 		Connection conn = null;
 		boolean flag = false;
 		String url = "jdbc:mysql://localhost:3306/";
-		String dbName = "loginuser";
+		String dbName = "swe";
 		Statement stmt = null;
 		ResultSet result = null;
 		String driver = "com.mysql.jdbc.Driver";
@@ -71,7 +70,7 @@ public class ConnectionMySQL {
 			pst.setString(1, obj.email);
 			result = pst.executeQuery();
 			flag=result.next();
-
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e);
 		}

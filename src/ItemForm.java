@@ -15,7 +15,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class ItemForm {
 	public static String userEmail="";
@@ -54,16 +58,20 @@ public class ItemForm {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 528, 527);
+		frame.getContentPane().setBackground(SystemColor.info);
+		frame.getContentPane().setForeground(new Color(250, 250, 210));
+		frame.setBounds(100, 100, 552, 565);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblNewForm = new JLabel("New Form");
-		lblNewForm.setBounds(182, 11, 80, 25);
+		lblNewForm.setForeground(new Color(0, 128, 128));
+		lblNewForm.setFont(new Font("Verdana", Font.PLAIN, 24));
+		lblNewForm.setBounds(182, 11, 126, 25);
 		frame.getContentPane().add(lblNewForm);
 		// **************************************************************************
 		JLabel lblClass = new JLabel("Classification");
-		lblClass.setBounds(47, 49, 87, 25);
+		lblClass.setBounds(47, 49, 132, 25);
 		frame.getContentPane().add(lblClass);
 		String[] classification = { "", "Founder", "Searcher" };
 		JComboBox comboBox = new JComboBox(classification);
@@ -72,7 +80,7 @@ public class ItemForm {
 
 		// **************************************************************************
 		JLabel lblCategory = new JLabel("Category");
-		lblCategory.setBounds(47, 85, 46, 14);
+		lblCategory.setBounds(47, 85, 104, 21);
 		frame.getContentPane().add(lblCategory);
 		String[] Category = { "", "Bag", "Wallet", "Mobile", "laptop", "Tablet", "Watch", "notebook", "Book",
 				"Flash Memory", "Hard disk" };
@@ -92,7 +100,7 @@ public class ItemForm {
 
 		// **************************************************************************
 		JLabel lblShape = new JLabel("Shape");
-		lblShape.setBounds(47, 147, 46, 14);
+		lblShape.setBounds(47, 147, 58, 25);
 		frame.getContentPane().add(lblShape);
 		String[] Shape = { "", "triangle", "trapezoid", "star", "square", "rectangle", "octagon", "heart", "diamond",
 				"circle" };
@@ -111,7 +119,7 @@ public class ItemForm {
 
 		// **************************************************************************
 		JLabel lblMaterial = new JLabel("Material");
-		lblMaterial.setBounds(47, 209, 46, 14);
+		lblMaterial.setBounds(47, 209, 104, 14);
 		frame.getContentPane().add(lblMaterial);
 		String[] Material = { "", "Leather", "Stainless Steel", "Rubber", "Resin", "Silicone", "Metal", " Fabric",
 				" Nylon ", "Plastic", "Ceramic", " Aluminum", " Canvas", " Silicon ", "Yellow Gold Plated",
@@ -122,7 +130,7 @@ public class ItemForm {
 
 		// **************************************************************************
 		JLabel lblTargetedGroup = new JLabel("Targeted Group");
-		lblTargetedGroup.setBounds(47, 240, 87, 14);
+		lblTargetedGroup.setBounds(47, 240, 144, 14);
 		frame.getContentPane().add(lblTargetedGroup);
 		String[] Targeted_Group = { "", "Man", "Woman", "Boy", "Girl" };
 		JComboBox comboBox_6 = new JComboBox(Targeted_Group);
@@ -151,6 +159,7 @@ public class ItemForm {
 		textField.setColumns(10);
 
 		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String Itemclassification = comboBox.getSelectedItem().toString();
@@ -205,16 +214,23 @@ public class ItemForm {
 					e1.printStackTrace();
 				}
 				formcontrol.FillForm(newitem, userid);
+				ArrayList p = new ArrayList();
+				ArrayList w = new ArrayList();
+				w = formcontrol.Connect(userEmail);
+				p = formcontrol.posts(userEmail);
+				if (w != null){formcontrol.deleteForm(userid);}
 				//JOptionPane.showMessageDialog(null, "Success");
-			Profile obj=new Profile();
-			obj.showprofile(userEmail);
+			    Profile obj=new Profile();
+			    obj.showprofile(userEmail);
+			    obj.showNotification(w);
+		        obj.showposts(p);
 			}
 		});
-		btnSubmit.setBounds(413, 454, 89, 23);
+		btnSubmit.setBounds(411, 457, 104, 36);
 		frame.getContentPane().add(btnSubmit);
 
 		JLabel lblDate = new JLabel("Date of found/lost the item");
-		lblDate.setBounds(47, 311, 144, 14);
+		lblDate.setBounds(26, 311, 211, 14);
 		frame.getContentPane().add(lblDate);
 
 		textField_1 = new JTextField();
@@ -223,7 +239,7 @@ public class ItemForm {
 		textField_1.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("District");
-		lblNewLabel_1.setBounds(133, 387, 46, 14);
+		lblNewLabel_1.setBounds(133, 387, 104, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JLabel lblStreet = new JLabel("Street");
@@ -236,7 +252,7 @@ public class ItemForm {
 		textField_2.setColumns(10);
 
 		JLabel lblNewLabel_2 = new JLabel("City");
-		lblNewLabel_2.setBounds(133, 362, 46, 14);
+		lblNewLabel_2.setBounds(133, 359, 86, 17);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		textField_3 = new JTextField();

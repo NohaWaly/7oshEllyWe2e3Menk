@@ -10,6 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 
@@ -84,26 +85,40 @@ public class getlogincontent {
 		});
 		chckbxShowPassword.setBounds(342, 116, 132, 25);
 		frame.getContentPane().add(chckbxShowPassword);
-
+		//btnback = new JButton("Back");
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				boolean flag;
+				ArrayList p = new ArrayList();
+				ArrayList w = new ArrayList();
 				usermail=Mail.getText();
 				Userinfo ob = new Userinfo(Mail.getText(), passwordField.getText().toString());
 				ConnectionMySQL c = new ConnectionMySQL();
 				flag = c.searchindb(ob);
 				if (flag == true) {
+					FormController formcontrol = new FormController();
+					w = formcontrol.Connect(usermail);
+					p = formcontrol.posts(usermail);
 					Profile obj = new Profile();
 					obj.showprofile(usermail);
+					 obj.showNotification(w);
+					
+					  obj.showposts(p);
+					  
 				} else {
 					JOptionPane.showMessageDialog(null, "Can't find data in db please sign up or recheck!!");
 				}
 			}
-		});
+		}
+		
+		);
+		
 		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 19));
 		btnLogin.setBounds(183, 190, 132, 25);
 		frame.getContentPane().add(btnLogin);
+	  
 	}
 
 }
